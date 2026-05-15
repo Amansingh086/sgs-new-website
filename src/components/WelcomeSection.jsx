@@ -128,73 +128,113 @@ export default function WelcomeSection() {
   const prevSlide = () => setActiveSlide((prev) => (prev - 1 + slideCount) % slideCount);
 
   return (
-    <section ref={sectionRef} className="relative h-[70vh] sm:h-[80vh] md:h-[90vh] overflow-hidden">
+    <section ref={sectionRef} className="relative w-full max-w-full h-[55vh] sm:h-[70vh] md:h-[85vh] lg:h-screen xl:h-[95vh] 2xl:h-[90vh] overflow-hidden">
+
       {/* Background Image */}
       <div
         ref={imageRef}
-        className="absolute inset-0 bg-center bg-cover opacity-0"
+        className="absolute inset-0 w-full h-full bg-center bg-cover bg-no-repeat opacity-0"
         style={{ backgroundImage: `url(${current.image})` }}
         aria-label={current.alt}
       />
 
       {/* Dark gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
 
-      {/* Content overlay */}
+      {/* Content overlay – pb ensures dots don't overlap text */}
       <div
         ref={contentRef}
-        className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center text-white opacity-0"
+        className="relative z-10 flex flex-col items-center justify-end h-full text-center text-white opacity-0
+                   px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28
+                   pb-14 sm:pb-16 md:pb-20 lg:pb-24 xl:pb-28"
       >
-        <p className="text-sm font-medium tracking-widest uppercase mb-2 opacity-90">
+        {/* Eyebrow label */}
+        <p className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg
+                      font-semibold tracking-[0.2em] sm:tracking-[0.25em]
+                      uppercase mb-1 sm:mb-2 md:mb-3 opacity-80">
           {current.eyebrow}
         </p>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 drop-shadow-lg">
+
+        {/* Main title */}
+        <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl
+                       font-extrabold leading-tight
+                       mb-3 sm:mb-4 md:mb-5 lg:mb-6
+                       drop-shadow-lg">
           {current.title}
         </h1>
-        <p className="max-w-md text-base sm:text-lg md:text-xl mb-6 drop-shadow-md">
+
+        {/* Description */}
+        <p className="max-w-[85%] sm:max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl
+                      text-[px] sm:text-sm md:text-base lg:text-lg xl:text-xl
+                      leading-relaxed
+                      mb-4 sm:mb-6 md:mb-7 lg:mb-8
+                      drop-shadow-md opacity-90">
           {current.description}
         </p>
+
+        {/* CTA Button */}
         {current.cta && current.link && (
           <Link
             to={current.link}
-            className="inline-block bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 text-white font-semibold py-2 px-6 rounded-md transition"
+            className="inline-block bg-primary-600 hover:bg-primary-700
+                       focus:ring-4 focus:ring-primary-300
+                       text-white font-semibold rounded-md transition
+                       text-[11px] sm:text-sm md:text-base lg:text-base xl:text-lg
+                       py-1.5 px-5 sm:py-2.5 sm:px-7 md:py-3 md:px-9 lg:py-3.5 lg:px-11 xl:py-4 xl:px-14"
           >
             {current.cta}
           </Link>
         )}
       </div>
 
-      {/* Navigation arrows – hidden on very small screens */}
+      {/* Navigation Arrows – visible on all screens, compact on mobile */}
       <button
         onClick={prevSlide}
-        className="hidden sm:flex absolute top-1/2 left-4 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-white"
+        className="flex absolute top-1/2 -translate-y-1/2 z-20
+                   left-2 sm:left-4 md:left-5 lg:left-7 xl:left-10
+                   bg-black/40 hover:bg-black/65 text-white rounded-full
+                   p-1.5 sm:p-2 md:p-2.5 lg:p-3 xl:p-4
+                   focus:outline-none focus:ring-2 focus:ring-white transition"
         aria-label="Previous slide"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg"
+          className="h-3.5 w-3.5 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 xl:h-8 xl:w-8"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
       <button
         onClick={nextSlide}
-        className="hidden sm:flex absolute top-1/2 right-4 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-white"
+        className="flex absolute top-1/2 -translate-y-1/2 z-20
+                   right-2 sm:right-4 md:right-5 lg:right-7 xl:right-10
+                   bg-black/40 hover:bg-black/65 text-white rounded-full
+                   p-1.5 sm:p-2 md:p-2.5 lg:p-3 xl:p-4
+                   focus:outline-none focus:ring-2 focus:ring-white transition"
         aria-label="Next slide"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg"
+          className="h-3.5 w-3.5 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 xl:h-8 xl:w-8"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </button>
 
-      {/* Dot indicators */}
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+      {/* Dot Indicators */}
+      <div className="absolute z-20 left-0 right-0 flex justify-center
+                      bottom-3 sm:bottom-4 md:bottom-5 lg:bottom-7 xl:bottom-9
+                      space-x-1.5 sm:space-x-2 md:space-x-2.5 lg:space-x-3 xl:space-x-4">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => goToSlide(idx)}
-            className={`w-3 h-3 rounded-full transition ${idx === activeSlide ? 'bg-white' : 'bg-white/50 hover:bg-white/80'}`}
+            className={`rounded-full transition
+              w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 lg:w-3.5 lg:h-3.5 xl:w-4 xl:h-4
+              ${idx === activeSlide ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'}`}
             aria-label={`Slide ${idx + 1}`}
           />
         ))}
       </div>
+
     </section>
   );
 }
